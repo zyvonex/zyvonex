@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zyvonex — Software Development & Technology Solutions</title>
-  <meta name="description" content="Zyvonex is a Chennai-based software development company providing Website Development, Application Development, AI Automation, Cloud & DevOps, UI/UX Design, and Consulting Services." />
+  <meta name="description" content="Zyvonex is a software development company providing Website Development, Application Development, AI Automation, Cloud & DevOps, UI/UX Design, and Consulting Services." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -163,7 +163,6 @@
         <div class="fade-in">
           <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-400/30 bg-indigo-500/10 mb-6">
             <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-            <span class="text-indigo-300 text-xs font-medium tracking-wide uppercase">Chennai-Based · Global Reach</span>
           </div>
 
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
@@ -537,7 +536,7 @@
         <div class="fade-in" style="transition-delay:0.15s">
           <span class="inline-block px-4 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-semibold tracking-widest uppercase mb-4">About Zyvonex</span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-6">
-            Your Trusted <span class="text-gradient">Technology Partner</span> in Chennai
+            Your Trusted <span class="text-gradient">Technology Partner</span> 
           </h2>
           <div class="space-y-4 text-gray-500 leading-relaxed">
             <p>
@@ -643,7 +642,7 @@
           </div>
         </div>
 
-        <div class="fade-in" style="transition-delay:0.15s">
+        <!-- <div class="fade-in" style="transition-delay:0.15s">
           <form id="contactForm" class="bg-white rounded-2xl p-8 lg:p-10 shadow-sm border border-gray-100">
             <div class="space-y-5">
               <div>
@@ -656,30 +655,33 @@
               </div>
               <div>
                 <label for="service" class="block text-sm font-semibold text-gray-700 mb-1.5">Service Required</label>
-                <select id="service" name="service" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
+                <select id="service" name="service" required class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300">
                   <option value="">Select a service...</option>
-                  <option>Website Development</option>
-                  <option>Application Development</option>
-                  <option>Consulting Services</option>
-                  <option>AI & Automation</option>
-                  <option>UI/UX Design</option>
-                  <option>Cloud & DevOps</option>
+                  <option value="Website Development">Website Development</option>
+                  <option value="Application Development">Application Development</option>
+                  <option value="Consulting Services">Consulting Services</option>
+                  <option value="AI & Automation">AI & Automation</option>
+                  <option value="UI/UX Design">UI/UX Design</option>
+                  <option value="Cloud & DevOps">Cloud & DevOps</option>
                 </select>
               </div>
               <div>
                 <label for="message" class="block text-sm font-semibold text-gray-700 mb-1.5">Message</label>
                 <textarea id="message" name="message" rows="4" required placeholder="Tell us about your project..." class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none"></textarea>
               </div>
-              <button type="submit" class="btn-cta w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300">
+              <button type="submit" id="submitBtn" class="btn-cta w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300">
                 Send Message
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
               </button>
             </div>
             <div id="formSuccess" class="hidden mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium text-center">
-              Thank you! We've received your message and will get back to you within 24 hours.
+              ✓ Thank you! We've received your message and will get back to you within 24 hours.
+            </div>
+            <div id="formError" class="hidden mt-4 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium text-center">
+              <span id="errorMessage"></span>
             </div>
           </form>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -805,22 +807,97 @@
       }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.fade-in').forEach(function (el) { observer.observe(el); });
 
-      /* Contact Form */
+      /* Contact Form with Gmail Integration */
       const contactForm = document.getElementById('contactForm');
       const formSuccess = document.getElementById('formSuccess');
-      contactForm.addEventListener('submit', function (e) {
+      const formError = document.getElementById('formError');
+      const errorMessage = document.getElementById('errorMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
-        const btn = contactForm.querySelector('button[type="submit"]');
-        btn.textContent = 'Sending...';
-        btn.disabled = true;
-        setTimeout(function () {
-          contactForm.reset();
-          formSuccess.classList.remove('hidden');
-          btn.innerHTML = 'Send Message';
-          btn.disabled = false;
-          setTimeout(function () { formSuccess.classList.add('hidden'); }, 5000);
-        }, 1200);
+
+        // Get form data
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const service = document.getElementById('service').value;
+        const message = document.getElementById('message').value.trim();
+
+        // Validate form
+        if (!name || !email || !service || !message) {
+          showError('Please fill in all required fields');
+          return;
+        }
+
+        if (!isValidEmail(email)) {
+          showError('Please enter a valid email address');
+          return;
+        }
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+        formError.classList.add('hidden');
+        formSuccess.classList.add('hidden');
+
+        try {
+          // Send to backend API
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              service: service,
+              message: message
+            })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            // Success - reset form and show success message
+            contactForm.reset();
+            formSuccess.classList.remove('hidden');
+            
+            // Hide success message after 5 seconds
+            setTimeout(function () {
+              formSuccess.classList.add('hidden');
+            }, 5000);
+          } else {
+            // Error response from server
+            showError(result.error || 'Failed to send message. Please try again.');
+          }
+        } catch (error) {
+          // Network error
+          console.error('Error:', error);
+          showError('Unable to send message. Please check your internet connection and try again.');
+        } finally {
+          // Re-enable button
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            Send Message
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+          `;
+        }
       });
+
+      /* Helper function to show error */
+      function showError(message) {
+        errorMessage.textContent = message;
+        formError.classList.remove('hidden');
+        setTimeout(function () {
+          formError.classList.add('hidden');
+        }, 5000);
+      }
+
+      /* Helper function to validate email */
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
 
     })();
   </script>
